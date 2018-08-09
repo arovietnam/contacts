@@ -19,10 +19,12 @@
 	- along with this program. If not, see <http://www.gnu.org/licenses/>.
 	-
 -->
+// ☞ 5bfb0d3f-5288-48ce-9dc1-94c2b08cf3ca
 
 <template>
 	<div class="import-contact">
-		<input id="contact-import" type="file" class="hidden-visually">
+		<input id="contact-import" type="file" class="hidden-visually"
+			@change="processFile">
 		<label id="upload" for="contact-import" class="button multiselect-label icon-upload no-select">
 			{{ t('contacts', 'Import into') }}
 		</label>
@@ -30,13 +32,15 @@
 			v-model="value"
 			:options="options"
 			:placeholder="t('contacts', 'Contacts')"
-			class="multiselect-vue" />
+			class="multiselect-vue"
+			@input="selectAddressBook" />
 	</div>
 </template>
 
 <script>
 import clickOutside from 'vue-click-outside'
 import Multiselect from 'vue-multiselect'
+import parseVcf from '../../services/parseVcf'
 
 export default {
 	name: 'SettingsImportContacts',
@@ -47,26 +51,46 @@ export default {
 	directives: {
 		clickOutside
 	},
-	// props: ['addressbooks'],
-	props: {
-		addressbooks: {
-			type: Array,
-			required: false,
-			default: undefined
-		}
-	},
 	data() {
 		return {
 			value: ''
 		}
 	},
 	computed: {
+		addressbooks() {
+			return this.$store.getters.getAddressbooks
+		},
 		options() {
 			return [t('contacts', 'Contacts')].concat(this.addressbooks.map(x => x.displayName))
+			//change to array of objects so that each option is tagged with "addressbook.id"
+		},
+		importTarget() {
+			return this.$store.getters.getImportTarget
 		}
 	},
 	methods: {
+		async processFile(event) {
+			let importDestination = this.addressbooks.find( x => x.displayName === this.importTarget)
+			let file = event.target.files[0]
+			let reader = new FileReader()
+			// reader.onload = async function(e) {
+			// ^ this is part of WIP
+			reader.onload = function(e) {
+				let contacts = parseVcf(reader.result, importDestination)
 
+				// await context.commit('appendContactsToAddressbook', { importDestination, contacts })
+				// await context.commit('appendContacts', contacts)
+				// this.$store.commit('setImportedContacts', contacts)
+				// ^ this is part of WIP
+			}
+			reader.readAsText(file)
+			// await context.commit('appendContactsToAddressbook', { importDestination, contacts })
+			// await context.commit('appendContacts', contacts)
+			// ^ this is part of WIP
+		},
+		selectAddressBook(event) {
+			this.$store.commit('setTarget', event)
+		}
 	}
 }
 </script>
