@@ -27,7 +27,10 @@ const state = {
 	// https://jsperf.com/ensure-unique-id-objects-vs-array
 	contacts: {},
 	sortedContacts: [],
-	orderKey: 'displayName'
+	orderKey: 'displayName',
+	importTarget: 'Addressbook 1',
+	// importedContacts: []    
+	// ^ this is part of WIP
 }
 
 const mutations = {
@@ -108,15 +111,36 @@ const mutations = {
 	 */
 	setOrder(state, orderKey = 'displayName') {
 		state.orderKey = orderKey
-	}
+	},
 
+	/**
+	 * Set the target address book
+	 *
+	 * @param {Object} state
+	 * @param {string} [importTarget='Addressbook 1']
+	 */
+	setTarget(state, importTarget = 'Addressbook 1') {
+		state.importTarget = importTarget //change anything called "importTarget" to "importDestination" throughout the app
+	},
+
+	// /**
+	//  * Set the contacts to be imported
+	//  *
+	//  * @param {Object} state
+	//  * @param {string} [importedContacts=[]]
+	//  */
+	// setImportedContacts(state, importedContacts = []) {
+	// 	state.importedContacts = importedContacts
+	// }
+	// ^ this is part of WIP
 }
 
 const getters = {
 	getContacts: state => state.contacts,
 	getSortedContacts: state => state.sortedContacts,
 	getContact: (state) => (uid) => state.contacts[uid],
-	getOrderKey: state => state.orderKey
+	getOrderKey: state => state.orderKey,
+	getImportTarget: state => state.importTarget
 }
 
 const actions = {

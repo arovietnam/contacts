@@ -32,7 +32,7 @@
 				</ul>
 				<add-address-book :addressbooks="addressbooks" />
 
-				<import-contacts :addressbooks="addressbooks" class="settings-section" />
+				<import-contacts class="settings-section" />
 				<sort-contacts class="settings-section" />
 
 			</template>
