@@ -41,6 +41,7 @@
 
 <script>
 import clickOutside from 'vue-click-outside'
+import Multiselect from 'vue-multiselect'
 
 export default {
 	name: 'SettingsShareSharee',
