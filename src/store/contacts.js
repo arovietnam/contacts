@@ -28,8 +28,7 @@ const state = {
 	contacts: {},
 	sortedContacts: [],
 	orderKey: 'displayName',
-	importTarget: 'Addressbook 1',
-	// importedContacts: []    
+	// importedContacts: []
 	// ^ this is part of WIP
 }
 
@@ -113,16 +112,6 @@ const mutations = {
 		state.orderKey = orderKey
 	},
 
-	/**
-	 * Set the target address book
-	 *
-	 * @param {Object} state
-	 * @param {string} [importTarget='Addressbook 1']
-	 */
-	setTarget(state, importTarget = 'Addressbook 1') {
-		state.importTarget = importTarget //change anything called "importTarget" to "importDestination" throughout the app
-	},
-
 	// /**
 	//  * Set the contacts to be imported
 	//  *
@@ -139,8 +128,7 @@ const getters = {
 	getContacts: state => state.contacts,
 	getSortedContacts: state => state.sortedContacts,
 	getContact: (state) => (uid) => state.contacts[uid],
-	getOrderKey: state => state.orderKey,
-	getImportTarget: state => state.importTarget
+	getOrderKey: state => state.orderKey
 }
 
 const actions = {
