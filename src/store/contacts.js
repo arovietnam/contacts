@@ -41,7 +41,7 @@ const mutations = {
 	 * @param {Object} state Default state
 	 * @param {Array} contacts Contacts
 	 */
-	async appendContacts(state, contacts = []) {
+	appendContacts(state, contacts = []) {
 		state.contacts = contacts.reduce(function(list, contact) {
 			Vue.set(list, contact.key, contact)
 			return list
@@ -91,7 +91,7 @@ const mutations = {
 	 *
 	 * @param {Object} state
 	 */
-	async sortContacts(state) {
+	sortContacts(state) {
 		state.sortedContacts = Object.values(state.contacts)
 			// exclude groups
 			.filter(contact => contact.kind !== 'group')
@@ -154,6 +154,17 @@ const actions = {
 	deleteContact(context, contact) {
 		context.commit('deleteContact', contact)
 		context.commit('deleteContactFromAddressbook', contact)
+	},
+
+	/**
+	 * Add a contact to the list and to the associated addressbook
+	 *
+	 * @param {Object} state
+	 * @param {Contact} contact the contact to delete
+	 */
+	addContact(context, contact) {
+		context.commit('addContact', contact)
+		context.commit('addContactToAddressbook', contact)
 	}
 }
 
