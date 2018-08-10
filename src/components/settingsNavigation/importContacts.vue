@@ -29,7 +29,7 @@
 			{{ t('contacts', 'Import into') }}
 		</label>
 		<multiselect
-			v-model="value"
+			v-model="importDestination"
 			:options="options"
 			:placeholder="t('contacts', 'Contacts')"
 			class="multiselect-vue" />
@@ -51,7 +51,7 @@ export default {
 	},
 	data() {
 		return {
-			value: ''
+			importDestination: ''
 		}
 	},
 	computed: {
@@ -65,7 +65,7 @@ export default {
 	},
 	methods: {
 		processFile(event) {
-			let importDestination = this.addressbooks.find( x => x.displayName === this.value)
+			let importDestination = this.addressbooks.find( x => x.displayName === this.importDestination)
 			let file = event.target.files[0]
 			let reader = new FileReader()
 			// reader.onload = async function(e) {
