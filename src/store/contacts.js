@@ -27,9 +27,7 @@ const state = {
 	// https://jsperf.com/ensure-unique-id-objects-vs-array
 	contacts: {},
 	sortedContacts: [],
-	orderKey: 'displayName',
-	// importedContacts: []
-	// ^ this is part of WIP
+	orderKey: 'displayName'
 }
 
 const mutations = {
@@ -110,18 +108,7 @@ const mutations = {
 	 */
 	setOrder(state, orderKey = 'displayName') {
 		state.orderKey = orderKey
-	},
-
-	// /**
-	//  * Set the contacts to be imported
-	//  *
-	//  * @param {Object} state
-	//  * @param {string} [importedContacts=[]]
-	//  */
-	// setImportedContacts(state, importedContacts = []) {
-	// 	state.importedContacts = importedContacts
-	// }
-	// ^ this is part of WIP
+	}
 }
 
 const getters = {
