@@ -32,8 +32,7 @@
 			v-model="value"
 			:options="options"
 			:placeholder="t('contacts', 'Contacts')"
-			class="multiselect-vue"
-			@input="selectAddressBook" />
+			class="multiselect-vue" />
 	</div>
 </template>
 
@@ -63,14 +62,11 @@ export default {
 		options() {
 			return [t('contacts', 'Contacts')].concat(this.addressbooks.map(x => x.displayName))
 			//change to array of objects so that each option is tagged with "addressbook.id"
-		},
-		importTarget() {
-			return this.$store.getters.getImportTarget
 		}
 	},
 	methods: {
-		async processFile(event) {
-			let importDestination = this.addressbooks.find( x => x.displayName === this.importTarget)
+		processFile(event) {
+			let importDestination = this.addressbooks.find( x => x.displayName === this.value)
 			let file = event.target.files[0]
 			let reader = new FileReader()
 			// reader.onload = async function(e) {
@@ -87,9 +83,6 @@ export default {
 			// await context.commit('appendContactsToAddressbook', { importDestination, contacts })
 			// await context.commit('appendContacts', contacts)
 			// ^ this is part of WIP
-		},
-		selectAddressBook(event) {
-			this.$store.commit('setTarget', event)
 		}
 	}
 }
