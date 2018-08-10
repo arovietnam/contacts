@@ -61,17 +61,19 @@ export default {
 		options() {
 			return [t('contacts', 'Contacts')].concat(this.addressbooks.map(x => x.displayName))
 			//change to array of objects so that each option is tagged with "addressbook.id"
+		},
+		selectedAddressbook() {
+			return this.addressbooks.find( x => x.displayName === this.importDestination)
 		}
 	},
 	methods: {
 		processFile(event) {
-			let importDestination = this.addressbooks.find( x => x.displayName === this.importDestination)
 			let file = event.target.files[0]
 			let reader = new FileReader()
 			// reader.onload = async function(e) {
 			// ^ this is part of WIP
 			reader.onload = function(e) {
-				let contacts = parseVcf(reader.result, importDestination)
+				let contacts = parseVcf(reader.result, this.selectedAddressbook.displayName)
 
 				// await context.commit('appendContactsToAddressbook', { importDestination, contacts })
 				// await context.commit('appendContacts', contacts)
