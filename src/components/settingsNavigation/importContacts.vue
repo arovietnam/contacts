@@ -31,6 +31,7 @@
 		<multiselect
 			v-model="importDestination"
 			:options="options"
+			label="displayName"
 			:placeholder="t('contacts', 'Contacts')"
 			class="multiselect-vue" />
 	</div>
@@ -59,21 +60,26 @@ export default {
 			return this.$store.getters.getAddressbooks
 		},
 		options() {
-			return [t('contacts', 'Contacts')].concat(this.addressbooks.map(x => x.displayName))
-			//change to array of objects so that each option is tagged with "addressbook.id"
+			return this.addressbooks.map(addressbook => {
+				return {
+					id: addressbook.id,
+					displayName: addressbook.displayName
+				}
+			})
 		},
 		selectedAddressbook() {
-			return this.addressbooks.find( x => x.displayName === this.importDestination)
+			return this.addressbooks.find( x => x.displayName === this.importDestination.displayName)
 		}
 	},
 	methods: {
 		processFile(event) {
 			let file = event.target.files[0]
 			let reader = new FileReader()
+			let selectedAddressbook = this.selectedAddressbook.displayName  // change value of selectedAddressbook variable
 			// reader.onload = async function(e) {
 			// ^ this is part of WIP
 			reader.onload = function(e) {
-				let contacts = parseVcf(reader.result, this.selectedAddressbook.displayName)
+				let contacts = parseVcf(reader.result, selectedAddressbook)
 
 				// await context.commit('appendContactsToAddressbook', { importDestination, contacts })
 				// await context.commit('appendContacts', contacts)
