@@ -67,8 +67,17 @@ export default {
 				}
 			})
 		},
-		selectedAddressbook() {
-			return this.addressbooks.find( x => x.displayName === this.importDestination.displayName)
+		selectedAddressbook: {
+			get() {
+				if (this.importDestination) {
+					return this.options.find(addressbook => addressbook.id === this.importDestination.id)
+				}
+				// default is first address book of the list
+				return this.options[0]
+			},
+			set(value) {
+				this.importDestination = value
+			}
 		}
 	},
 	methods: {
