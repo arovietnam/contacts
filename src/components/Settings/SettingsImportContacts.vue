@@ -71,7 +71,7 @@ export default {
 		selectedAddressbook: {
 			get() {
 				if (this.importDestination) {
-					return this.options.find(addressbook => addressbook.id === this.importDestination.id)
+					return this.addressbooks.find(addressbook => addressbook.id === this.importDestination.id)
 				}
 				// default is first address book of the list
 				return this.options[0]
@@ -85,21 +85,13 @@ export default {
 		processFile(event) {
 			let file = event.target.files[0]
 			let reader = new FileReader()
-			let selectedAddressbook = this.selectedAddressbook.displayName  // change value of selectedAddressbook variable
-			// reader.onload = async function(e) {
-			// ^ this is part of WIP
+			let selectedAddressbook = this.selectedAddressbook
+			let that = this
 			reader.onload = function(e) {
 				let contacts = parseVcf(reader.result, selectedAddressbook)
-
-				// await context.commit('appendContactsToAddressbook', { importDestination, contacts })
-				// await context.commit('appendContacts', contacts)
-				// this.$store.commit('setImportedContacts', contacts)
-				// ^ this is part of WIP
+				that.$store.dispatch('commitContactsFromImport', { contacts: contacts, addressbook: selectedAddressbook })
 			}
 			reader.readAsText(file)
-			// await context.commit('appendContactsToAddressbook', { importDestination, contacts })
-			// await context.commit('appendContacts', contacts)
-			// ^ this is part of WIP
 		}
 	}
 }
