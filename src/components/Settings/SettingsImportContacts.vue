@@ -31,8 +31,8 @@
 		<multiselect
 			v-model="importDestination"
 			:options="options"
-			label="displayName"
 			:placeholder="t('contacts', 'Contacts')"
+			label="displayName"
 			class="multiselect-vue" />
 	</div>
 </template>

@@ -225,13 +225,14 @@ const actions = {
 	},
 
 	/**
-	 * Commit parsed contacts into the address book. 
+	 * Commit parsed contacts into the address book.
 	 * Both are specified in importDetails.
 	 *
 	 * @param {Object} context
 	 * @param {Object} importDetails = { contacts, addressbook }
 	 */
 	commitContactsFromImport(context, importDetails) {
+		// eslint-disable-next-line
 		console.log(importDetails)
 		let contacts = importDetails.contacts
 		let addressbook = importDetails.addressbook
