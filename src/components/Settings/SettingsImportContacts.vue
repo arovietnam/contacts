@@ -73,7 +73,7 @@ export default {
 					return this.addressbooks.find(addressbook => addressbook.id === this.importDestination.id)
 				}
 				// default is first address book of the list
-				return this.options[0]
+				return this.addressbooks[0]
 			},
 			set(value) {
 				this.importDestination = value
