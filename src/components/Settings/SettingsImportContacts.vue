@@ -31,7 +31,6 @@
 		<multiselect
 			v-model="importDestination"
 			:options="options"
-			label="displayName"
 			:placeholder="t('contacts', 'Contacts')"
 			label="displayName"
 			class="multiselect-vue" />
@@ -87,10 +86,12 @@ export default {
 			let file = event.target.files[0]
 			let reader = new FileReader()
 			let selectedAddressbook = this.selectedAddressbook
-			let that = this
+			let self = this
 			reader.onload = function(e) {
 				let contacts = parseVcf(reader.result, selectedAddressbook)
-				that.$store.dispatch('commitContactsFromImport', { contacts: contacts, addressbook: selectedAddressbook })
+				self.$store.dispatch('commitContactsFromImport', { contacts, addressbook: selectedAddressbook })
+				// self.$store.dispatch('getContactsFromAddressBook', { vcfFile: reader.result, addressbook: selectedAddressbook })
+				// ^ part of WIP
 			}
 			reader.readAsText(file)
 		}

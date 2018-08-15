@@ -231,15 +231,11 @@ const actions = {
 	 * @param {Object} context
 	 * @param {Object} importDetails = { contacts, addressbook }
 	 */
-	commitContactsFromImport(context, importDetails) {
-		// eslint-disable-next-line
-		console.log(importDetails)
-		let contacts = importDetails.contacts
-		let addressbook = importDetails.addressbook
+	commitContactsFromImport(context, { contacts, addressbook }) {
 		context.commit('appendContactsToAddressbook', { addressbook, contacts })
 		context.commit('appendContacts', contacts)
 		context.commit('sortContacts')
-		// context.commit('appendGroups', contacts)
+		context.commit('appendGroups', contacts)
 	},
 
 	/**
