@@ -61,12 +61,11 @@ export default {
 			return this.$store.getters.getAddressbooks
 		},
 		options() {
-			return this.addressbooks.map(addressbook => {
-				return {
-					id: addressbook.id,
-					displayName: addressbook.displayName
-				}
+			return this.addressbooks.map(addressbook => ({
+				id: addressbook.id,
+				displayName: addressbook.displayName
 			})
+			)
 		},
 		selectedAddressbook: {
 			get() {
