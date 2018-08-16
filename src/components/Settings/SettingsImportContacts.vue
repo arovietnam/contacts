@@ -87,7 +87,7 @@ export default {
 			let selectedAddressbook = this.selectedAddressbook
 			let self = this
 			reader.onload = function(e) {
-				self.$store.dispatch('commitContactsFromImport', { vcf: reader.result, addressbook: selectedAddressbook })
+				self.$store.dispatch('getContactsFromAddressBook', { vcf: reader.result, addressbook: selectedAddressbook })
 			}
 			reader.readAsText(file)
 		}

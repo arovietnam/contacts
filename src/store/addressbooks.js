@@ -210,28 +210,13 @@ const actions = {
 	},
 
 	/**
-	 * Retrieve the contacts of the specified addressbook
+	 * Retrieve the contacts for the specified address book
 	 * and commit the results
-	 *
-	 * @param {Object} context
-	 * @param {Object} addressbook
-	 */
-	getContactsFromAddressBook(context, addressbook) {
-		let contacts = parseVcf(vcfFile, addressbook)
-		context.commit('appendContactsToAddressbook', { addressbook, contacts })
-		context.commit('appendContacts', contacts)
-		context.commit('sortContacts')
-		context.commit('appendGroups', contacts)
-	},
-
-	/**
-	 * Commit parsed contacts into the address book.
-	 * Both are specified in importDetails.
 	 *
 	 * @param {Object} context
 	 * @param {Object} importDetails = { vcf, addressbook }
 	 */
-	commitContactsFromImport(context, { vcf, addressbook }) {
+	getContactsFromAddressBook(context, { vcf, addressbook }) {
 		let contacts = parseVcf(vcf, addressbook)
 		context.commit('appendContactsToAddressbook', { addressbook, contacts })
 		context.commit('appendContacts', contacts)

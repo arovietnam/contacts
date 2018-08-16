@@ -47,6 +47,7 @@ import appNavigation from '../components/core/appNavigation'
 import settingsSection from '../components/SettingsSection'
 import contentList from '../components/ContentList'
 import contactDetails from '../components/ContactDetails'
+import vcfFile from '!raw-loader!../store/FakeName.vcf'
 
 import Contact from '../models/contact'
 
@@ -182,7 +183,7 @@ export default {
 		this.$store.dispatch('getAddressbooks')
 			.then(() => {
 				Promise.all(this.addressbooks.map(async addressbook => {
-					await this.$store.dispatch('getContactsFromAddressBook', addressbook)
+					await this.$store.dispatch('getContactsFromAddressBook', { vcf: vcfFile, addressbook })
 				})).then(() => {
 					this.loading = false
 					this.selectFirstContactIfNone()
