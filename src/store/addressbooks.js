@@ -229,9 +229,10 @@ const actions = {
 	 * Both are specified in importDetails.
 	 *
 	 * @param {Object} context
-	 * @param {Object} importDetails = { contacts, addressbook }
+	 * @param {Object} importDetails = { vcf, addressbook }
 	 */
-	commitContactsFromImport(context, { contacts, addressbook }) {
+	commitContactsFromImport(context, { vcf, addressbook }) {
+		let contacts = parseVcf(vcf, addressbook)
 		context.commit('appendContactsToAddressbook', { addressbook, contacts })
 		context.commit('appendContacts', contacts)
 		context.commit('sortContacts')

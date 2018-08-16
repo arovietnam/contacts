@@ -40,7 +40,6 @@
 <script>
 import clickOutside from 'vue-click-outside'
 import Multiselect from 'vue-multiselect'
-import parseVcf from '../../services/parseVcf'
 
 export default {
 	name: 'SettingsImportContacts',
@@ -61,11 +60,12 @@ export default {
 			return this.$store.getters.getAddressbooks
 		},
 		options() {
-			return this.addressbooks.map(addressbook => ({
-				id: addressbook.id,
-				displayName: addressbook.displayName
+			return this.addressbooks.map(addressbook => {
+				return {
+					id: addressbook.id,
+					displayName: addressbook.displayName
+				}
 			})
-			)
 		},
 		selectedAddressbook: {
 			get() {
@@ -87,10 +87,7 @@ export default {
 			let selectedAddressbook = this.selectedAddressbook
 			let self = this
 			reader.onload = function(e) {
-				let contacts = parseVcf(reader.result, selectedAddressbook)
-				self.$store.dispatch('commitContactsFromImport', { contacts, addressbook: selectedAddressbook })
-				// self.$store.dispatch('getContactsFromAddressBook', { vcfFile: reader.result, addressbook: selectedAddressbook })
-				// ^ part of WIP
+				self.$store.dispatch('commitContactsFromImport', { vcf: reader.result, addressbook: selectedAddressbook })
 			}
 			reader.readAsText(file)
 		}
