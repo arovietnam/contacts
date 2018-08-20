@@ -26,14 +26,14 @@
 		<!-- new-contact-button + navigation + settings -->
 		<app-navigation :menu="menu">
 			<!-- settings -->
-			<settings-section slot="settings-content" />
+			<settings-section slot="settings-content" :importing="importing" @clicked="onClickImport" @fileLoaded="onLoad" />
 		</app-navigation>
 
 		<!-- main content -->
 		<div id="app-content">
 			<div id="app-content-wrapper">
 				<!-- contacts list -->
-				<content-list :list="contactsList" :contacts="contacts" :loading="loading" />
+				<content-list :list="contactsList" :contacts="contacts" :loading="loading" :importing="importing" />
 				<!-- main contacts details -->
 				<contact-details :loading="loading" :uid="selectedContact" />
 			</div>
@@ -74,7 +74,8 @@ export default {
 
 	data() {
 		return {
-			loading: true
+			loading: true,
+			importing: false
 		}
 	},
 
@@ -234,6 +235,12 @@ export default {
 					}
 				})
 			}
+		},
+		onClickImport(event) {
+			this.importing = event
+		},
+		onLoad(event) {
+			this.importing = event
 		}
 	}
 }

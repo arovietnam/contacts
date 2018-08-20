@@ -27,7 +27,7 @@
 		</ul>
 		<add-address-book :addressbooks="addressbooks" />
 
-		<import-contacts :addressbooks="addressbooks" class="settings-section" />
+		<import-contacts :addressbooks="addressbooks" class="settings-section" :importing="importing" @clicked="onClickImport" v-on:fileLoaded="onLoad" />
 		<sort-contacts class="settings-section" />
 	</div>
 </template>
@@ -46,10 +46,24 @@ export default {
 		importContacts,
 		sortContacts
 	},
+	props: {
+		importing: {
+			type: Boolean,
+			default: false
+		}
+	},
 	computed: {
 		// store getters
 		addressbooks() {
 			return this.$store.getters.getAddressbooks
+		}
+	},
+	methods: {
+		onClickImport(event) {
+			this.$emit('clicked', event)
+		},
+		onLoad(event) {
+			this.$emit('fileLoaded', false)
 		}
 	}
 }

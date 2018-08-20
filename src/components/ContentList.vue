@@ -21,7 +21,9 @@
   -->
 
 <template>
-	<div id="contacts-list" :class="{'icon-loading': loading}" class="app-content-list">
+	<!-- <div id="contacts-list" :class="{'icon-loading': loading}" class="app-content-list"> -->
+	<div id="contacts-list" :class="{'icon-loading': importing}" class="app-content-list">
+	<!-- ^ WIP: (two above lines) temporarily commenting out original loading conditions to test out loading for importing -->
 		<!-- same uid can coexists between different addressbooks
 			so we need to use the addressbook id as key as well -->
 		<content-list-item v-for="contact in list" :key="contact.key" :contact="contacts[contact.key]" />
@@ -48,7 +50,12 @@ export default {
 		loading: {
 			type: Boolean,
 			default: true
+		},
+		importing: {
+			type: Boolean,
+			default: false
 		}
+		// ^ WIP: (importing prop) may have to remove for final import loading
 	}
 }
 </script>

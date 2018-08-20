@@ -50,6 +50,12 @@ export default {
 	directives: {
 		clickOutside
 	},
+	props: {
+		importing: {
+			type: Boolean,
+			default: false
+		}
+	},
 	data() {
 		return {
 			importDestination: ''
@@ -82,15 +88,18 @@ export default {
 	},
 	methods: {
 		processFile(event) {
+			this.$emit('clicked', true)
 			let file = event.target.files[0]
 			let reader = new FileReader()
 			let selectedAddressbook = this.selectedAddressbook
 			let self = this
 			reader.onload = function(e) {
 				self.$store.dispatch('getContactsFromAddressBook', { vcf: reader.result, addressbook: selectedAddressbook })
+				self.$emit('fileLoaded', false)
 			}
 			reader.readAsText(file)
 		}
 	}
 }
 </script>
+// ☞ f34b2e1a-1610-4a5f-bdbf-9a83325796fe
